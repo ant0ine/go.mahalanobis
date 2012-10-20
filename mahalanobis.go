@@ -42,6 +42,7 @@ import (
 )
 
 // Given a set a points, return the mean vector.
+// points.Rows() = dimensions. points.Cols() = number of points.
 func MeanVector(points *matrix.DenseMatrix) *matrix.DenseMatrix {
 	mean := matrix.Zeros(points.Rows(), 1)
 	for i := 0; i < points.Rows(); i++ {
@@ -82,12 +83,15 @@ func sample_covariance_matrix(points, mean *matrix.DenseMatrix) *matrix.DenseMat
 }
 
 // Return the covariance matrix for this set of points (sample covariance is used)
+// points.Rows() = dimensions. points.Cols() = number of points.
 func CovarianceMatrix(points *matrix.DenseMatrix) *matrix.DenseMatrix {
 	mean := MeanVector(points)
 	return sample_covariance_matrix(points, mean)
 }
 
 // Return the square of the Mahalanobis distance
+// points.Rows() = dimensions. points.Cols() = number of points.
+// target.Cols = 1
 func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 
 	if target.Rows() != points.Rows() {
@@ -121,6 +125,8 @@ func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 }
 
 // Return the Mahalanobis distance
+// points.Rows() = dimensions. points.Cols() = number of points.
+// target.Cols = 1
 func Distance(points, target *matrix.DenseMatrix) (float64, error) {
 	square, err := DistanceSquare(points, target)
 	if err != nil {
