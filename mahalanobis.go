@@ -104,18 +104,18 @@ func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 
 	inv, err := cov.Inverse()
 	if err != nil {
-		return 0, err // XXX
+		return -1, err
 	}
 	//fmt.Println("inverse covariance:\n", inv)
 
 	product1, err := inv.TimesDense(delta)
 	if err != nil {
-		return 0, err // XXX
+		return -1, err
 	}
 	delta_t := delta.Transpose()
 	product2, err := delta_t.TimesDense(product1)
 	if err != nil {
-		return 0, err // XXX
+		return -1, err
 	}
 
 	return product2.Get(0, 0), nil
@@ -125,7 +125,7 @@ func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 func Distance(points, target *matrix.DenseMatrix) (float64, error) {
 	square, err := DistanceSquare(points, target)
 	if err != nil {
-		return 0, err // XXX
+		return -1, err
 	}
 	return math.Sqrt(square), nil
 
