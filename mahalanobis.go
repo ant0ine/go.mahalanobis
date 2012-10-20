@@ -36,7 +36,6 @@
 package mahalanobis
 
 import (
-	//    "fmt"
 	"github.com/skelterjohn/go.matrix"
 	"math"
 )
@@ -93,20 +92,16 @@ func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 	// TODO check the dimensions
 
 	mean := MeanVector(points)
-	//fmt.Println("mean:\n", mean)
 
 	delta := target.Copy()
 	delta.SubtractDense(mean)
-	//fmt.Println("delta:\n", delta)
 
 	cov := sample_covariance_matrix(points, mean)
-	//fmt.Println("covariance:\n", cov)
 
 	inv, err := cov.Inverse()
 	if err != nil {
 		return -1, err
 	}
-	//fmt.Println("inverse covariance:\n", inv)
 
 	product1, err := inv.TimesDense(delta)
 	if err != nil {
