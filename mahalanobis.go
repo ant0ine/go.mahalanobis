@@ -93,7 +93,7 @@ func CovarianceMatrix(points *matrix.DenseMatrix) *matrix.DenseMatrix {
 // points.Rows() = dimensions. points.Cols() = number of points.
 // target.Cols = 1
 func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
-
+        // TODO support multiple points for target, and return a matrix of distances
 	if target.Rows() != points.Rows() {
 		err := errors.New("target does not have the same dimension than points")
 		return -1, err

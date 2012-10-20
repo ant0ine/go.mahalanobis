@@ -7,6 +7,10 @@ import (
 	"testing"
 )
 
+func is_near(value, expected, epsilon float64) bool {
+        return math.Abs(value-expected) < epsilon
+}
+
 func TestMeanVector(t *testing.T) {
 
 	points := matrix.MakeDenseMatrix([]float64{
@@ -89,9 +93,7 @@ func TestCovarianceMatrix(t *testing.T) {
 
 func TestDistance(t *testing.T) {
 
-	// R:
-	// x = cbind(c(9, 3, 5), c(3, 4, 1))
-	// mahalanobis(c(1,1), colMeans(x), var(x))
+	// R: x = cbind(c(9, 3, 5), c(3, 4, 1))
 	points := matrix.MakeDenseMatrix([]float64{
 		9, 3, 5,
 		3, 4, 1,
@@ -100,14 +102,24 @@ func TestDistance(t *testing.T) {
 		1,
 		1,
 	}, 2, 1)
+
 	square, err := DistanceSquare(points, target)
 	if err != nil {
 		t.Fatal(err)
 	}
 	var expected float64
 	expected = 4.08
-	// is near
-	if math.Abs(square-expected) > 0.01 {
+	if !is_near(square, expected, 0.01) {
+		t.Error()
+	}
+
+	// R: mahalanobis(c(1,1), colMeans(x), var(x))
+	distance, err := Distance(points, target)
+	if err != nil {
+		t.Fatal(err)
+	}
+	expected = 2.02
+	if !is_near(distance, expected, 0.01) {
 		t.Error()
 	}
 }
