@@ -38,6 +38,7 @@ package mahalanobis
 import (
 	"github.com/skelterjohn/go.matrix"
 	"math"
+        "errors"
 )
 
 // Given a set a points, return the mean vector.
@@ -89,7 +90,10 @@ func CovarianceMatrix(points *matrix.DenseMatrix) *matrix.DenseMatrix {
 // Return the square of the Mahalanobis distance
 func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error) {
 
-	// TODO check the dimensions
+	if target.Rows() != points.Rows() {
+                err := errors.New("target does not have the same dimension than points")
+                return -1, err
+        }
 
 	mean := MeanVector(points)
 
