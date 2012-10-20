@@ -17,15 +17,15 @@ package mahalanobis
 	    "github.com/ant0ine/go.mahalanobis"
 	)
 	func main() {
-	    points, err := matrix.ParseMatlab("[1 4 3 4;4 2 3 4]")
-	    if err != nil {
-	    panic(err)
-	    }
+	    points := matrix.MakeDenseMatrix([]float64{
+	        1, 4, 3, 4,
+	        4, 2, 3, 4,
+	    }, 2, 4)
 	    fmt.Println("4 points:\n", points)
-	    target, err := matrix.ParseMatlab("[3;4]")
-	    if err != nil {
-	        panic(err)
-	    }
+	    target := matrix.MakeDenseMatrix([]float64{
+	        3,
+	        4,
+	    }, 2, 1)
 	    fmt.Println("the target point:\n", target)
 	    distance, err := mahalanobis.Distance(points, target)
 	    if err != nil {
