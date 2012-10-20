@@ -38,15 +38,18 @@ FUNCTIONS
 
 func CovarianceMatrix(points *matrix.DenseMatrix) *matrix.DenseMatrix
     Return the covariance matrix for this set of points (sample covariance
-    is used)
+    is used) points.Rows() = dimensions. points.Cols() = number of points.
 
 func Distance(points, target *matrix.DenseMatrix) (float64, error)
-    Return the Mahalanobis distance
+    Return the Mahalanobis distance points.Rows() = dimensions.
+    points.Cols() = number of points. target.Cols = 1
 
 func DistanceSquare(points, target *matrix.DenseMatrix) (float64, error)
-    Return the square of the Mahalanobis distance
+    Return the square of the Mahalanobis distance points.Rows() =
+    dimensions. points.Cols() = number of points. target.Cols = 1
 
 func MeanVector(points *matrix.DenseMatrix) *matrix.DenseMatrix
-    Given a set a points, return the mean vector.
+    Given a set a points, return the mean vector. points.Rows() =
+    dimensions. points.Cols() = number of points.
 
 
